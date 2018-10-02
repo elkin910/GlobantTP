@@ -29,7 +29,7 @@ class PresidentList extends React.Component{
   };
     
   callService = (query) => {
-    fetch('https://globanttprestservice.azurewebsites.net/api/President'+query)
+    fetch('https://globanttprestservice.azurewebsites.net/api/president'+query)
       
       .then(response => response.json())
       .catch(error => console.error('Error en Peticion:', error.message))
@@ -37,12 +37,12 @@ class PresidentList extends React.Component{
         this.setState({presidents:this.state.presidents = []})
         presidents.forEach(president => {
           let data = {
-            id:president.Id,
-            name:president.Name,
-            birthday:president.Birthday,
-            birthplace:president.Birthplace,
-            deathday:president.DeathDay,
-            deathplace:president.DeathPlace
+            id:president.id,
+            name:president.name,
+            birthday:president.birthday,
+            birthplace:president.birthplace,
+            deathday:president.deathDay,
+            deathplace:president.deathPlace
             
           }  
           console.log( data )
@@ -68,7 +68,7 @@ class PresidentList extends React.Component{
                 <th>Deaht Day</th>
                 <th>Deaht Place</th>
               </tr>
-          { this.state.presidents.map(president => <President key={president.id} name=           {president.name} birthday={president.birthday} birthplace={president.birthplace} deathday={president.deathday} deathplace={president.deathplace}/>) }
+          { this.state.presidents.map(president => <President key={president.id} name={president.name} birthday={president.birthday} birthplace={president.birthplace} deathday={president.deathday} deathplace={president.deathplace}/>) }
           </table>
         </div>
       )

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.OData.Extensions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace GlobantTP.RestService
 {
@@ -12,8 +14,13 @@ namespace GlobantTP.RestService
         {
             // Web API configuration and services
             config.AddODataQueryFilter();
+
+            var settings = config.Formatters.JsonFormatter.SerializerSettings;
+            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            settings.Formatting = Formatting.Indented;
+
             // Web API routes
-            config.MapHttpAttributeRoutes();
+             config.MapHttpAttributeRoutes();
 
             //Enable CORS - we have to install Microsoft.AspNet.WebApi.Cors from Package Manager Console before
             config.EnableCors();

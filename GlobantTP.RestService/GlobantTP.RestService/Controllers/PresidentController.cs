@@ -1,9 +1,6 @@
 ﻿using GlobantTP.RestService.Models;
-using System;
+using GlobantTP.RestService.Repositories;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.OData;
@@ -13,11 +10,21 @@ namespace GlobantTP.RestService.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PresidentController : ApiController
     {
+
+        private IPresidentRepository _presidentRepository;
+
+        public PresidentController(IPresidentRepository presidentRepository)
+        {
+            _presidentRepository = presidentRepository;
+        }
+
         [EnableQuery]
         // GET: api/President
         public IEnumerable<President> Get()
         {
-            List<President> listPresidents = new List<President> {
+            List<President> listPresidents = _presidentRepository.GetAll();
+
+            /*List<President> listPresidents = new List<President> {
 
                     new President{ Id=1, Name="George Washington", Birthday="1732-2-22", Birthplace="Westmoreland Co., Va.", DeathDay="1799-12-14", DeathPlace="Mount Vernon, Va." },
                     new President{ Id=2, Name="John Adams", Birthday="1735-10-30", Birthplace="Quincy, Mass.", DeathDay="1826-7-4", DeathPlace="Quincy, Mass." },
@@ -66,7 +73,7 @@ namespace GlobantTP.RestService.Controllers
                     
 
 
-            };
+            };*/
 
             return listPresidents;
         }
