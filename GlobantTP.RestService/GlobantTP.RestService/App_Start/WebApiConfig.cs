@@ -15,12 +15,21 @@ namespace GlobantTP.RestService
             // Web API configuration and services
             config.AddODataQueryFilter();
 
+
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.MediaTypeMappings
+            .Add(new System.Net.Http.Formatting.RequestHeaderMapping("Accept",
+                                                                     "text/html",
+                                                                     StringComparison.InvariantCultureIgnoreCase,
+                                                                     true,
+                                                                    "application/json"));
+
             var settings = config.Formatters.JsonFormatter.SerializerSettings;
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             settings.Formatting = Formatting.Indented;
 
+            
             // Web API routes
-             config.MapHttpAttributeRoutes();
+            config.MapHttpAttributeRoutes();
 
             //Enable CORS - we have to install Microsoft.AspNet.WebApi.Cors from Package Manager Console before
             config.EnableCors();
